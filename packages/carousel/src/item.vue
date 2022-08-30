@@ -37,11 +37,11 @@
     data() {
       return {
         hover: false,
-        translate: 0,
+        translate: 0, // 位移
         scale: 1,
-        active: false,
-        ready: false,
-        inStage: false,
+        active: false, // 选中
+        ready: false, // 显示
+        inStage: false, // 根据activeIndex的大小，设置z-index的大小，隐藏轮播图
         animating: false
       };
     },

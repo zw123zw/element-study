@@ -39,7 +39,7 @@
       <el-button type="primary" icon="el-icon-share"></el-button>
       <el-button type="primary" icon="el-icon-delete"></el-button>
     </el-button-group>
-    <el-carousel height="200px" style="background: #9e60e2;overflow: hidden;">
+    <el-carousel height="200px" style="background: #9e60e2;overflow: hidden;" type="card">
       <el-carousel-item v-for="item in 4" :key="item" :label="item">
         <h3 class="small">{{ item }}</h3>
       </el-carousel-item>
