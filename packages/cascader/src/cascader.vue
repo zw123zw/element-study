@@ -42,6 +42,7 @@
       </template>
     </el-input>
 
+    <!-- 选中的值 -->
     <div v-if="multiple" class="el-cascader__tags">
       <el-tag
         v-for="tag in presentTags"
@@ -70,6 +71,8 @@
         v-show="dropDownVisible"
         ref="popper"
         :class="['el-popper', 'el-cascader__dropdown', popperClass]">
+        
+        <!-- 下拉选项 -->
         <el-cascader-panel
           ref="panel"
           v-show="!filtering"
@@ -80,6 +83,7 @@
           :render-label="$scopedSlots.default"
           @expand-change="handleExpandChange"
           @close="toggleDropDownVisible(false)"></el-cascader-panel>
+          
         <el-scrollbar
           ref="suggestionPanel"
           v-if="filterable"

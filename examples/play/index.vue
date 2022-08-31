@@ -39,12 +39,17 @@
       <el-button type="primary" icon="el-icon-share"></el-button>
       <el-button type="primary" icon="el-icon-delete"></el-button>
     </el-button-group>
-    <el-carousel height="200px" style="background: #9e60e2;overflow: hidden;" type="card">
+    <el-carousel
+      height="200px"
+      style="background: #9e60e2;overflow: hidden;"
+      type="card"
+    >
       <el-carousel-item v-for="item in 4" :key="item" :label="item">
         <h3 class="small">{{ item }}</h3>
       </el-carousel-item>
     </el-carousel>
-    
+    <el-cascader v-model="value" :options="options"></el-cascader>
+
     <el-calendar v-model="dateValue"></el-calendar>
     <el-avatar :src="circleUrl" :size="100" icon="el-icon-user"></el-avatar>
     <el-avatar :src="circleUrl" shape="square" size="small"></el-avatar>
@@ -60,6 +65,25 @@ export default {
       dateValue: '',
       circleUrl:
         'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+      value: [],
+      options: [
+        {
+          value: 'zhinan',
+          label: '指南',
+          children: [
+            {
+              value: 'shejiyuanze',
+              label: '设计原则',
+              children: [
+                {
+                  value: 'yizhi',
+                  label: '一致',
+                },
+              ],
+            },
+          ],
+        },
+      ],
     }
   },
   methods: {

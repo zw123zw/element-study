@@ -42,7 +42,7 @@
         active: false, // 选中
         ready: false, // 显示
         inStage: false, // 根据activeIndex的大小，设置z-index的大小，隐藏轮播图
-        animating: false
+        animating: false  //动画
       };
     },
 
@@ -60,6 +60,7 @@
         return index;
       },
 
+      // 计算卡片位移的大小
       calcCardTranslate(index, activeIndex) {
         const parentWidth = this.$parent.$el.offsetWidth;
         if (this.inStage) {
@@ -71,11 +72,13 @@
         }
       },
 
+      // 计算滑块位移的大小
       calcTranslate(index, activeIndex, isVertical) {
         const distance = this.$parent.$el[isVertical ? 'offsetHeight' : 'offsetWidth'];
         return distance * (index - activeIndex);
       },
 
+      // 设置当前的位移
       translateItem(index, activeIndex, oldIndex) {
         const parentType = this.$parent.type;
         const parentDirection = this.parentDirection;
@@ -103,6 +106,7 @@
         this.ready = true;
       },
 
+      // 滑块点击
       handleItemClick() {
         const parent = this.$parent;
         if (parent && parent.type === 'card') {
@@ -113,10 +117,12 @@
     },
 
     computed: {
+      // 轮播盒子的方向
       parentDirection() {
         return this.$parent.direction;
       },
 
+      // 轮播内容的样式
       itemStyle() {
         const translateType = this.parentDirection === 'vertical' ? 'translateY' : 'translateX';
         const value = `${translateType}(${ this.translate }px) scale(${ this.scale })`;
@@ -128,10 +134,12 @@
     },
 
     created() {
+      // 在当前轮播内容创建时，更新幻灯片数量
       this.$parent && this.$parent.updateItems();
     },
 
     destroyed() {
+      // 在当前轮播内容销毁时，更新幻灯片数量
       this.$parent && this.$parent.updateItems();
     }
   };
