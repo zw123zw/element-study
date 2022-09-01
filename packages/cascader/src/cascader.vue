@@ -72,7 +72,7 @@
         ref="popper"
         :class="['el-popper', 'el-cascader__dropdown', popperClass]">
         
-        <!-- 下拉选项 -->
+        <!-- 下拉选项面板 -->
         <el-cascader-panel
           ref="panel"
           v-show="!filtering"
@@ -83,7 +83,8 @@
           :render-label="$scopedSlots.default"
           @expand-change="handleExpandChange"
           @close="toggleDropDownVisible(false)"></el-cascader-panel>
-          
+        
+        <!-- 下拉选项区域 -->
         <el-scrollbar
           ref="suggestionPanel"
           v-if="filterable"
