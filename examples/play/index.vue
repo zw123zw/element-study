@@ -48,7 +48,7 @@
         <h3 class="small">{{ item }}</h3>
       </el-carousel-item>
     </el-carousel>
-    <el-cascader v-model="value" :options="options"></el-cascader>
+    <el-cascader v-model="value" :options="options" :props="{ multiple: true }" filterable size="small"></el-cascader>
 
     <el-calendar v-model="dateValue"></el-calendar>
     <el-avatar :src="circleUrl" :size="100" icon="el-icon-user"></el-avatar>

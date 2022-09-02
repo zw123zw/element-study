@@ -12,6 +12,7 @@
     @click="() => toggleDropDownVisible(readonly ? undefined : true)"
     @keydown="handleKeyDown">
 
+    <!-- 级联选择器 -->
     <el-input
       ref="input"
       v-model="multiple ? presentText : inputValue"
@@ -84,7 +85,7 @@
           @expand-change="handleExpandChange"
           @close="toggleDropDownVisible(false)"></el-cascader-panel>
         
-        <!-- 下拉选项区域 -->
+        <!-- 可搜索的下拉选项区域 -->
         <el-scrollbar
           ref="suggestionPanel"
           v-if="filterable"
@@ -217,16 +218,16 @@ export default {
       type: String,
       default: ' / '
     },
-    showAllLevels: {
+    showAllLevels: {  //显示所有level
       type: Boolean,
       default: true
     },
-    collapseTags: Boolean,
-    debounce: {
+    collapseTags: Boolean, //折叠
+    debounce: { // 防抖
       type: Number,
       default: 300
     },
-    beforeFilter: {
+    beforeFilter: { //过滤前的方法
       type: Function,
       default: () => (() => {})
     },
@@ -235,34 +236,34 @@ export default {
 
   data() {
     return {
-      dropDownVisible: false,
-      checkedValue: this.value,
-      inputHover: false,
-      inputValue: null,
-      presentText: null,
-      presentTags: [],
-      checkedNodes: [],
-      filtering: false,
-      suggestions: [],
-      inputInitialHeight: 0,
-      pressDeleteCount: 0
+      dropDownVisible: false, //聚焦的样式
+      checkedValue: this.value, //下拉选项面板选中的值
+      inputHover: false, //聚焦
+      inputValue: null, //输入框的值
+      presentText: null, //多选时输入框的值
+      presentTags: [], //多选时展示的标签列表
+      checkedNodes: [], //选中的节点列表
+      filtering: false, //过滤状态
+      suggestions: [], //可搜索的下拉建议列表
+      inputInitialHeight: 0, //输入框高度
+      pressDeleteCount: 0 //删除的数量
     };
   },
 
   computed: {
-    realSize() {
+    realSize() { // 多选框的真实大小
       const _elFormItemSize = (this.elFormItem || {}).elFormItemSize;
       return this.size || _elFormItemSize || (this.$ELEMENT || {}).size;
     },
-    tagSize() {
+    tagSize() { // 多选选中的tag大小
       return ['small', 'mini'].indexOf(this.realSize) > -1
         ? 'mini'
         : 'small';
     },
-    isDisabled() {
+    isDisabled() { // 是否禁用
       return this.disabled || (this.elForm || {}).disabled;
     },
-    config() {
+    config() { // 所有属性对象
       const config = this.props || {};
       const { $attrs } = this;
 
@@ -271,7 +272,7 @@ export default {
         .forEach(oldProp => {
           const { newProp, type } = MigratingProps[oldProp];
           let oldValue = $attrs[oldProp] || $attrs[kebabCase(oldProp)];
-          if (isDef(oldProp) && !isDef(config[newProp])) {
+          if (isDef(oldProp) && !isDef(config[newProp])) { // 处理默认值
             if (type === Boolean && oldValue === '') {
               oldValue = true;
             }
@@ -281,16 +282,16 @@ export default {
 
       return config;
     },
-    multiple() {
+    multiple() { // 多选状态
       return this.config.multiple;
     },
-    leafOnly() {
+    leafOnly() {  //checkStrictly--选择任意一级
       return !this.config.checkStrictly;
     },
-    readonly() {
+    readonly() { // 输入框是否是只读
       return !this.filterable || this.multiple;
     },
-    clearBtnVisible() {
+    clearBtnVisible() { // 是否显示清空按钮
       if (!this.clearable || this.isDisabled || this.filtering || !this.inputHover) {
         return false;
       }
@@ -299,12 +300,13 @@ export default {
         ? !!this.checkedNodes.filter(node => !node.isDisabled).length
         : !!this.presentText;
     },
-    panel() {
+    panel() { // 级联选择器的panel对象
       return this.$refs.panel;
     }
   },
 
   watch: {
+    // 禁用是否开始
     disabled() {
       this.computePresentContent();
     },
