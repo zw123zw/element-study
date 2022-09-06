@@ -310,13 +310,13 @@ export default {
     disabled() {
       this.computePresentContent();
     },
-    value(val) {
+    value(val) { // 更新内容
       if (!isEqual(val, this.checkedValue)) {
         this.checkedValue = val;
         this.computePresentContent();
       }
     },
-    checkedValue(val) {
+    checkedValue(val) { //选中值改变后
       const { value, dropDownVisible } = this;
       const { checkStrictly, multiple } = this.config;
 
@@ -379,6 +379,7 @@ export default {
       }
     });
 
+    // 监听大小改变
     addResizeListener(this.$el, this.updateStyle);
   },
 
@@ -399,6 +400,7 @@ export default {
         }
       };
     },
+    // 下拉显示/隐藏
     toggleDropDownVisible(visible) {
       if (this.isDisabled) return;
 
@@ -422,6 +424,7 @@ export default {
       this.inputValue = this.presentText;
       this.doDestroy();
     },
+    // 键盘控制下拉项状态
     handleKeyDown(event) {
       switch (event.keyCode) {
         case KeyCode.enter:
@@ -458,11 +461,13 @@ export default {
       this.presentText = '';
       this.panel.clearCheckedNodes();
     },
+    // 下拉选项面板展开后
     handleExpandChange(value) {
       this.$nextTick(this.updatePopper.bind(this));
       this.$emit('expand-change', value);
       this.$emit('active-item-change', value); // Deprecated
     },
+    // 聚焦第一个选项
     focusFirstNode() {
       this.$nextTick(() => {
         const { filtering } = this;
@@ -482,6 +487,7 @@ export default {
         }
       });
     },
+    // 多选时更新选中列表
     computePresentContent() {
       // nextTick is required, because checked nodes may not change right now
       this.$nextTick(() => {
@@ -493,6 +499,7 @@ export default {
         }
       });
     },
+    // 是否为空
     isEmptyValue(val) {
       const { multiple } = this;
       const { emitPath } = this.panel.config;
@@ -501,6 +508,7 @@ export default {
       }
       return false;
     },
+    // 设置选中的文本
     computePresentText() {
       const { checkedValue, config } = this;
       if (!this.isEmptyValue(checkedValue)) {
@@ -512,6 +520,7 @@ export default {
       }
       this.presentText = null;
     },
+    // 设置多选的选中标签
     computePresentTags() {
       const { isDisabled, leafOnly, showAllLevels, separator, collapseTags } = this;
       const checkedNodes = this.getCheckedNodes(leafOnly);
@@ -574,6 +583,7 @@ export default {
       this.suggestions = suggestions;
       this.$nextTick(this.updatePopper);
     },
+    // 可搜索区域的键盘事件
     handleSuggestionKeyDown(event) {
       const { keyCode, target } = event;
       switch (keyCode) {

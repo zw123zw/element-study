@@ -56,18 +56,21 @@ const getSibling = (el, distance) => {
   return null;
 };
 
+// 获取建议菜单的menuIndex
 const getMenuIndex = (el, distance) => {
   if (!el) return;
   const pieces = el.id.split('-');
   return Number(pieces[pieces.length - 2]);
 };
 
+// 元素聚焦
 const focusNode = el => {
   if (!el) return;
   el.focus();
   !isLeaf(el) && el.click();
 };
 
+// 选中节点
 const checkNode = el => {
   if (!el) return;
 
@@ -121,12 +124,15 @@ export default {
     multiple() {
       return this.config.multiple;
     },
+    // 选择任意一级
     checkStrictly() {
       return this.config.checkStrictly;
     },
+    // 只选择最后一级
     leafOnly() {
       return !this.checkStrictly;
     },
+    // 是否hover
     isHoverMenu() {
       return this.config.expandTrigger === 'hover';
     },
