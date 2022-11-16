@@ -29,8 +29,8 @@ export default {
     type(type) {
       if (this.picker) {
         this.unmountPicker();
-        this.panel = getPanel(type);
-        this.mountPicker();
+        this.panel = getPanel(type);  //先得到面板类型
+        this.mountPicker(); //用面板类型初始化picker
       } else {
         this.panel = getPanel(type);
       }

@@ -1,3 +1,4 @@
+// 获取滚动条宽度
 import Vue from 'vue';
 
 let scrollBarWidth;

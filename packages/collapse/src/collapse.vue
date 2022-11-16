@@ -10,7 +10,7 @@
     componentName: 'ElCollapse',
 
     props: {
-      accordion: Boolean,
+      accordion: Boolean, // 是否手风琴模式，只选择一个
       value: {
         type: [Array, String, Number],
         default() {
@@ -57,8 +57,10 @@
           let index = activeNames.indexOf(item.name);
 
           if (index > -1) {
+            // 折叠
             activeNames.splice(index, 1);
           } else {
+            // 展开
             activeNames.push(item.name);
           }
           this.setActiveNames(activeNames);
